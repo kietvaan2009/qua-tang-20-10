@@ -1,0 +1,62 @@
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg1:#ffe6f0;--bg2:#fff5f8;--card:#fff;--ink:#6b2d44;--pink:#ff7eb0;--deep:#e8457a;--paper:#fffdfb;--rule:#ffd6e5;--trunk:#1f1419;--ground:#2a1a22}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#2b1220;--bg2:#3d1a2e;--card:#3a2030;--ink:#ffe0ec;--paper:#44283a;--rule:#5e3550;--trunk:#b07a66;--ground:#e0aab9}}
+:root[data-theme="dark"]{--bg1:#2b1220;--bg2:#3d1a2e;--card:#3a2030;--ink:#ffe0ec;--paper:#44283a;--rule:#5e3550;--trunk:#b07a66;--ground:#e0aab9}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+*{box-sizing:border-box}
+body{margin:0;height:100%;overflow:hidden;font-family:'Patrick Hand','Segoe UI',sans-serif;color:var(--ink);background:linear-gradient(160deg,var(--bg1),var(--bg2));background-attachment:fixed}
+.fl{position:fixed;top:-8vh;z-index:0;pointer-events:none;animation:fall linear infinite}
+@keyframes fall{0%{transform:translate3d(0,0,0) rotate(0)}50%{transform:translate3d(40px,55vh,0) rotate(180deg)}100%{transform:translate3d(-24px,115vh,0) rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.fl{display:none}}
+#tree{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:0;transition:opacity .2s}
+#tree.on{opacity:1}
+#s1{position:fixed;inset:0;z-index:2;display:grid;place-items:center;transition:opacity .9s,transform .9s}
+#s1.out{opacity:0;transform:scale(.94);pointer-events:none}
+.card{width:min(92vw,420px);background:var(--card);border:3px dashed var(--pink);border-radius:28px;padding:20px 22px 22px;text-align:center;box-shadow:0 14px 44px rgba(232,69,122,.22)}
+h1{margin:0 0 14px;font:700 clamp(28px,7vw,38px) 'Dancing Script',cursive;color:var(--deep);user-select:none}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:4px;aspect-ratio:1;position:relative;overflow:hidden;border-radius:14px;transition:gap .5s}
+.t{background-size:300% 300%;background-repeat:no-repeat;border-radius:8px;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.t.sel{transform:scale(.93);box-shadow:0 0 0 3px var(--deep),0 0 18px var(--pink);position:relative;z-index:1}
+.t.pop{animation:pop .35s}
+@keyframes pop{50%{transform:scale(1.08)}}
+.grid::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.9) 50%,transparent 65%);transform:translateX(-100%);pointer-events:none}
+.grid.done{gap:0;animation:glow 1.5s ease-in-out}
+.grid.done .t{border-radius:0}
+.grid.done::after{animation:shine 1.5s ease-in-out}
+@keyframes shine{to{transform:translateX(100%)}}
+@keyframes glow{50%{box-shadow:0 0 38px 10px rgba(255,120,170,.9)}}
+.pl{display:flex;justify-content:space-between;align-items:center;margin:16px 2px 8px;font-size:19px}
+.pl b{background:var(--deep);color:#fff;border-radius:999px;padding:1px 14px;font-weight:400;min-width:58px}
+.bar{height:12px;border-radius:99px;background:var(--rule);overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#ff9ec4,#e8457a);transition:width .5s}
+#letter{position:fixed;z-index:3;left:3vw;top:45%;translate:-30px -50%;width:min(46vw,580px);height:min(76vh,640px);opacity:0;pointer-events:none;transition:opacity .9s,translate .9s}
+#letter.show{opacity:1;translate:0 -50%;pointer-events:auto}
+.paper{height:100%;display:flex;flex-direction:column;position:relative;overflow:hidden;background:var(--paper);border:3px solid var(--pink);border-radius:18px;box-shadow:0 16px 44px rgba(232,69,122,.25)}
+h2{margin:0;padding:16px 80px 8px 22px;font:700 clamp(22px,3.2vw,32px) 'Dancing Script',cursive;color:var(--deep)}
+#body{flex:1;overflow:auto;padding:0 22px;font-size:21px;line-height:32px;background-image:repeating-linear-gradient(transparent 0 31px,var(--rule) 31px 32px);background-attachment:local}
+#gr{font:700 27px/32px 'Dancing Script',cursive;color:var(--deep);margin-bottom:32px;white-space:pre-wrap}
+#tx{white-space:pre-wrap}
+.cur{display:inline-block;width:2px;height:1em;margin-left:2px;vertical-align:-3px;background:var(--deep);animation:bl 1s steps(1) infinite}
+@keyframes bl{50%{opacity:0}}
+.stamp{position:absolute;top:12px;right:14px;width:58px;padding:5px 2px;text-align:center;rotate:5deg;border:2px dashed var(--deep);border-radius:4px;background:rgba(255,160,200,.25);color:var(--deep);font-size:14px;line-height:1.1}
+.rb{position:absolute;right:12px;bottom:8px;font-size:34px}
+.foot{height:66px;display:flex;align-items:center;justify-content:center}
+.btn{padding:8px 36px;border:0;border-radius:999px;font:inherit;font-size:23px;color:#fff;cursor:pointer;background:linear-gradient(135deg,#ff8fb8,#ff5c93);box-shadow:0 6px 16px rgba(255,92,147,.45);opacity:0;pointer-events:none;transition:opacity .6s}
+.btn.on{opacity:1;pointer-events:auto;animation:pulse 1.8s infinite}
+.btn.gone{opacity:0;pointer-events:none;animation:none}
+@keyframes pulse{50%{transform:scale(1.06)}}
+.pol{position:absolute;left:calc(100% - 64px);bottom:40px;width:clamp(210px,24vw,310px);padding:12px 12px 48px;background:#fff;border-radius:10px;box-shadow:0 14px 34px rgba(120,30,70,.38);cursor:pointer;perspective:800px;z-index:2;opacity:0;pointer-events:none;transform:rotate(14deg) scale(.5) translateY(40px);transition:opacity .7s,transform .8s cubic-bezier(.2,1.3,.4,1)}
+.pol.on{opacity:1;pointer-events:auto;transform:rotate(4deg)}
+.ph{aspect-ratio:4/5;position:relative;transform-style:preserve-3d;transition:transform .8s}
+.f{position:absolute;inset:0;background-size:cover;background-position:center;backface-visibility:hidden;border-radius:2px}
+.f.b{transform:rotateY(180deg)}
+.cap{position:absolute;left:0;right:0;bottom:10px;text-align:center;font:600 23px 'Dancing Script',cursive;color:#9a3d62}
+@media (max-width:760px){
+#letter{left:50%;top:calc(env(safe-area-inset-top,0px) + 2vh);translate:-50% -24px;width:92vw;height:54vh}
+#letter.show{translate:-50% 0}
+#body{font-size:18px;line-height:28px;padding:0 16px;background-image:repeating-linear-gradient(transparent 0 27px,var(--rule) 27px 28px)}
+#gr{font-size:24px;line-height:28px;margin-bottom:28px}
+.pol{left:auto;right:-6px;bottom:-70px;width:160px;padding:8px 8px 36px}
+.cap{font-size:18px;bottom:6px}
+.foot{height:56px}
+}
